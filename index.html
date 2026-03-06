@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NexaTech — Future Forward</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #040810;
+    --surface: #0a1020;
+    --accent: #00e5ff;
+    --accent2: #7c3aed;
+    --text: #e8f0fe;
+    --muted: #6b7a99;
+    --border: rgba(0,229,255,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% 20%, rgba(0,229,255,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 60% at 80% 80%, rgba(124,58,237,0.07) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 60px;
+    background: rgba(4,8,16,0.7);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.5rem;
+    letter-spacing: -0.5px;
+    color: var(--text);
+  }
+
+  .logo span { color: var(--accent); }
+
+  nav ul {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  nav ul a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  nav ul a:hover { color: var(--accent); }
+
+  .nav-btn {
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    padding: 9px 22px;
+    border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .nav-btn:hover {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 0 60px;
+    z-index: 1;
+  }
+
+  .hero-content { max-width: 680px; }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0,229,255,0.07);
+    border: 1px solid rgba(0,229,255,0.2);
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 0.78rem;
+    color: var(--accent);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: blink 1.5s infinite;
+  }
+
+  @keyframes blink {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    margin-bottom: 24px;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+
+  h1 em {
+    font-style: normal;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 500px;
+    margin-bottom: 44px;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 16px;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--bg);
+    padding: 14px 32px;
+    border-radius: 8px;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 0 30px rgba(0,229,255,0.25);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 50px rgba(0,229,255,0.4);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text);
+    padding: 14px 32px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .hero-grid {
+    position: absolute;
+    right: 0; top: 0; bottom: 0;
+    width: 50%;
+    opacity: 0.04;
+    background-image:
+      linear-gradient(var(--accent) 1px, transparent 1px),
+      linear-gradient(90deg, var(--accent) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  .stats {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .stat {
+    background: var(--bg);
+    padding: 48px 60px;
+    transition: background 0.3s;
+  }
+
+  .stat:hover { background: var(--surface); }
+
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: -1px;
+  }
+
+  .stat-label {
+    font-size: 0.88rem;
+    color: var(--muted);
+    margin-top: 6px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .section {
+    position: relative;
+    z-index: 1;
+    padding: 120px 60px;
+  }
+
+  .section-tag {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin-bottom: 60px;
+    max-width: 600px;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .service-card {
+    background: var(--bg);
+    padding: 48px 40px;
+    transition: background 0.3s;
+    position: relative;
+  }
+
+  .service-card:hover { background: var(--surface); }
+
+  .service-icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(0,229,255,0.08);
+    border: 1px solid rgba(0,229,255,0.2);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    margin-bottom: 24px;
+  }
+
+  .service-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .service-desc {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .cta-section {
+    position: relative;
+    z-index: 1;
+    margin: 0 60px 120px;
+    background: linear-gradient(135deg, rgba(0,229,255,0.06), rgba(124,58,237,0.06));
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 80px;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(0,229,255,0.05), transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 16px;
+  }
+
+  .cta-sub {
+    color: var(--muted);
+    font-size: 1rem;
+    margin-bottom: 36px;
+  }
+
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 40px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  footer p {
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===================== CHAT WIDGET ===================== */
+  #chat-bubble {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 9999;
+    width: 58px;
+    height: 58px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 0 0 0 rgba(0,229,255,0.5);
+    animation: pulse 2.5s infinite;
+    transition: transform 0.2s;
+  }
+
+  #chat-bubble:hover { transform: scale(1.1); }
+
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(0,229,255,0.5); }
+    70% { box-shadow: 0 0 0 16px rgba(0,229,255,0); }
+    100% { box-shadow: 0 0 0 0 rgba(0,229,255,0); }
+  }
+
+  #chat-bubble svg { width: 26px; height: 26px; fill: var(--bg); }
+
+  #chat-window {
+    position: fixed;
+    bottom: 100px;
+    right: 28px;
+    z-index: 9998;
+    width: 370px;
+    height: 520px;
+    background: #0a1220;
+    border: 1px solid rgba(0,229,255,0.2);
+    border-radius: 20px;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+    animation: slideUp 0.3s ease;
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  #chat-header {
+    background: linear-gradient(135deg, rgba(0,229,255,0.1), rgba(124,58,237,0.1));
+    border-bottom: 1px solid rgba(0,229,255,0.1);
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .chat-avatar {
+    width: 38px;
+    height: 38px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .chat-header-info h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .chat-header-info p {
+    font-size: 0.75rem;
+    color: #00e5ff;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .chat-header-info p::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: #00e5ff;
+    border-radius: 50%;
+    animation: blink 1.5s infinite;
+  }
+
+  #chat-close {
+    margin-left: auto;
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 1.3rem;
+    line-height: 1;
+    transition: color 0.2s;
+  }
+
+  #chat-close:hover { color: var(--text); }
+
+  #chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0,229,255,0.2) transparent;
+  }
+
+  .msg {
+    max-width: 82%;
+    padding: 11px 15px;
+    border-radius: 14px;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    animation: msgIn 0.3s ease;
+  }
+
+  @keyframes msgIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .msg.bot {
+    background: rgba(0,229,255,0.07);
+    border: 1px solid rgba(0,229,255,0.12);
+    color: var(--text);
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+  }
+
+  .msg.user {
+    background: var(--accent);
+    color: var(--bg);
+    align-self: flex-end;
+    font-weight: 500;
+    border-bottom-right-radius: 4px;
+  }
+
+  .typing {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    padding: 12px 15px;
+    background: rgba(0,229,255,0.07);
+    border: 1px solid rgba(0,229,255,0.12);
+    border-radius: 14px;
+    border-bottom-left-radius: 4px;
+    align-self: flex-start;
+    width: fit-content;
+  }
+
+  .typing span {
+    width: 7px;
+    height: 7px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: typingDot 1.2s infinite;
+  }
+
+  .typing span:nth-child(2) { animation-delay: 0.2s; }
+  .typing span:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes typingDot {
+    0%,60%,100% { transform: translateY(0); opacity: 0.4; }
+    30% { transform: translateY(-5px); opacity: 1; }
+  }
+
+  #chat-input-area {
+    border-top: 1px solid rgba(0,229,255,0.1);
+    padding: 14px 16px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background: rgba(4,8,16,0.5);
+  }
+
+  #chat-input {
+    flex: 1;
+    background: rgba(0,229,255,0.05);
+    border: 1px solid rgba(0,229,255,0.15);
+    border-radius: 10px;
+    padding: 10px 14px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  #chat-input:focus { border-color: rgba(0,229,255,0.4); }
+  #chat-input::placeholder { color: var(--muted); }
+
+  #chat-send {
+    width: 38px;
+    height: 38px;
+    background: var(--accent);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  #chat-send:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0,229,255,0.4);
+  }
+
+  #chat-send svg { width: 16px; height: 16px; fill: var(--bg); }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    nav ul { display: none; }
+    .hero { padding: 0 24px; }
+    .stats { grid-template-columns: 1fr; }
+    .stat { padding: 36px 24px; }
+    .section { padding: 80px 24px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .cta-section { margin: 0 24px 80px; padding: 48px 24px; }
+    footer { padding: 24px; flex-direction: column; gap: 12px; text-align: center; }
+    #chat-window { width: calc(100vw - 32px); right: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Nexa<span>Tech</span></div>
+  <ul>
+    <li><a href="#">Services</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Work</a></li>
+    <li><a href="#">Blog</a></li>
+  </ul>
+  <button class="nav-btn">Get Started</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-tag">Next Generation Technology</div>
+    <h1>We Build<br>The <em>Future</em><br>Today</h1>
+    <p class="hero-sub">NexaTech delivers cutting-edge software solutions, AI integrations, and digital infrastructure that power tomorrow's businesses.</p>
+    <div class="hero-btns">
+      <button class="btn-primary">Explore Services</button>
+      <button class="btn-ghost">View Our Work →</button>
+    </div>
+  </div>
+  <div class="hero-grid"></div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-num">150+</div>
+    <div class="stat-label">Projects Delivered</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">98%</div>
+    <div class="stat-label">Client Satisfaction</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">7 yrs</div>
+    <div class="stat-label">Industry Experience</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="section">
+  <div class="section-tag">What We Do</div>
+  <h2 class="section-title">Services Built For Scale</h2>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">🤖</div>
+      <div class="service-name">AI Integration</div>
+      <p class="service-desc">Custom AI solutions and LLM integrations that automate workflows and unlock new capabilities for your business.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">⚡</div>
+      <div class="service-name">Web Development</div>
+      <p class="service-desc">High-performance web applications built with modern tech stacks. Fast, scalable, and beautiful by default.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">☁️</div>
+      <div class="service-name">Cloud Infrastructure</div>
+      <p class="service-desc">Resilient cloud architecture on AWS, GCP, and Azure. We design systems that never sleep and never fail.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📱</div>
+      <div class="service-name">Mobile Apps</div>
+      <p class="service-desc">Cross-platform mobile applications for iOS and Android. Native performance with unified codebases.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔐</div>
+      <div class="service-name">Cybersecurity</div>
+      <p class="service-desc">End-to-end security audits, penetration testing, and zero-trust architecture for enterprise environments.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📊</div>
+      <div class="service-name">Data Analytics</div>
+      <p class="service-desc">Turn raw data into strategic decisions. Custom dashboards, pipelines, and machine learning models.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <p class="section-tag">Let's Work Together</p>
+  <h2 class="cta-title">Ready To Build Something Great?</h2>
+  <p class="cta-sub">Talk to our team about your next big project.</p>
+  <button class="btn-primary">Start a Conversation</button>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">Nexa<span>Tech</span></div>
+  <p>© 2025 NexaTech. All rights reserved.</p>
+  <p>Built with precision & purpose.</p>
+</footer>
+
+<!-- CHAT BUBBLE -->
+<div id="chat-bubble" onclick="toggleChat()">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+  </svg>
+</div>
+
+<!-- CHAT WINDOW -->
+<div id="chat-window">
+  <div id="chat-header">
+    <div class="chat-avatar">🤖</div>
+    <div class="chat-header-info">
+      <h4>NexaTech Assistant</h4>
+      <p>Online — Ready to help</p>
+    </div>
+    <button id="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+
+  <div id="chat-messages">
+    <div class="msg bot">👋 Hi! I'm NexaTech's AI assistant. Ask me anything about our services, pricing, or team — I'm here to help!</div>
+  </div>
+
+  <div id="chat-input-area">
+    <input type="text" id="chat-input" placeholder="Type your message..." onkeydown="handleKey(event)" />
+    <button id="chat-send" onclick="sendMessage()">
+      <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  const WEBHOOK_URL = 'http://localhost:5678/webhook/chat';
+  let isOpen = false;
+
+  // ✅ STEP 1 DONE: Unique session ID sent with every message for memory support
+  const SESSION_ID = 'session_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+
+  function toggleChat() {
+    isOpen = !isOpen;
+    const win = document.getElementById('chat-window');
+    if (isOpen) {
+      win.style.display = 'flex';
+      win.style.flexDirection = 'column';
+      setTimeout(() => document.getElementById('chat-input').focus(), 100);
+    } else {
+      win.style.display = 'none';
+    }
+  }
+
+  function handleKey(e) {
+    if (e.key === 'Enter') sendMessage();
+  }
+
+  function addMessage(text, type) {
+    const box = document.getElementById('chat-messages');
+    const msg = document.createElement('div');
+    msg.className = `msg ${type}`;
+    msg.textContent = text;
+    box.appendChild(msg);
+    box.scrollTop = box.scrollHeight;
+  }
+
+  function showTyping() {
+    const box = document.getElementById('chat-messages');
+    const t = document.createElement('div');
+    t.className = 'typing';
+    t.id = 'typing-indicator';
+    t.innerHTML = '<span></span><span></span><span></span>';
+    box.appendChild(t);
+    box.scrollTop = box.scrollHeight;
+  }
+
+  function removeTyping() {
+    const t = document.getElementById('typing-indicator');
+    if (t) t.remove();
+  }
+
+  async function sendMessage() {
+    const input = document.getElementById('chat-input');
+    const msg = input.value.trim();
+    if (!msg) return;
+
+    addMessage(msg, 'user');
+    input.value = '';
+    showTyping();
+
+    try {
+      const res = await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        // ✅ session_id is now sent with every message
+        body: JSON.stringify({ message: msg, session_id: SESSION_ID })
+      });
+
+      const text = await res.text();
+      removeTyping();
+
+      let reply = 'I received your message!';
+      try {
+        const data = JSON.parse(text);
+        if (data.reply && typeof data.reply === 'string') {
+          reply = data.reply;
+        }
+      } catch (e) {
+        if (text && text.length < 2000) reply = text;
+      }
+
+      addMessage(reply, 'bot');
+    } catch (err) {
+      removeTyping();
+      addMessage('⚠️ Could not connect to the server. Make sure n8n is running!', 'bot');
+    }
+  }
+</script>
+
+</body>
+</html>
